@@ -45,8 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\BuildFavoriteProject.cs" />
+    <Compile Include="Commands\BuildFavoriteProjectCommand.cs" />
     <Compile Include="ExtendedShortcutsPackage.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>

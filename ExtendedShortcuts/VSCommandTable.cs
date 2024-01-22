@@ -22,5 +22,6 @@ namespace ExtendedShortcuts
     {
         public const int MyMenuGroup = 0x0001;
         public const int BuildFavoriteProject = 0x0100;
+        public const int SetFavoriteProject = 0x0101;
     }
 }

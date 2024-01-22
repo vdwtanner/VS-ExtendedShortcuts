@@ -9,29 +9,31 @@
   <Commands package="ExtendedShortcuts">
     <Groups>
       <Group guid="ExtendedShortcuts" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="VSMainMenu" id="Tools"/>
+        <Parent guid="VSMainMenu" id="Build"/>
       </Group>
     </Groups>
 
     <!--This section defines the elements the user can interact with, like a menu command or a button
         or combo box in a toolbar. -->
     <Buttons>
-      <Button guid="ExtendedShortcuts" id="MyCommand" priority="0x0100" type="Button">
+      <Button guid="ExtendedShortcuts" id="BuildFavoriteProject" priority="0x0100" type="Button">
         <Parent guid="ExtendedShortcuts" id="MyMenuGroup" />
         <Icon guid="ImageCatalogGuid" id="StatusInformation" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>My Command</ButtonText>
-          <LocCanonicalName>.ExtendedShortcuts.MyCommand</LocCanonicalName>
+          <ButtonText>Build Favorite Project</ButtonText>
+          <LocCanonicalName>.ExtendedShortcuts.BuildFavoriteProject</LocCanonicalName>
         </Strings>
       </Button>
     </Buttons>
   </Commands>
-
+  <KeyBindings>
+    <KeyBinding guid="ExtendedShortcuts" id="BuildFavoriteProject" editor="guidVSStd97" key1="B" mod1="CONTROL SHIFT ALT"/>
+  </KeyBindings>
   <Symbols>
     <GuidSymbol name="ExtendedShortcuts" value="{a0c9e1da-9573-4732-934b-5e24e1660625}">
       <IDSymbol name="MyMenuGroup" value="0x0001" />
-      <IDSymbol name="MyCommand" value="0x0100" />
+      <IDSymbol name="BuildFavoriteProject" value="0x0100" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -1,7 +1,7 @@
 ﻿namespace ExtendedShortcuts
 {
-    [Command(PackageIds.MyCommand)]
-    internal sealed class MyCommand : BaseCommand<MyCommand>
+    [Command(PackageIds.BuildFavoriteProject)]
+    internal sealed class BuildFavoriteProject : BaseCommand<BuildFavoriteProject>
     {
         protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
         {

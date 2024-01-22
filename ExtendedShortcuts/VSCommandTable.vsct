@@ -20,6 +20,7 @@
         <Parent guid="ExtendedShortcuts" id="MyMenuGroup" />
         <Icon guid="ImageCatalogGuid" id="BuildSelection" />
         <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Build Favorite Project</ButtonText>
           <LocCanonicalName>.ExtendedShortcuts.BuildFavoriteProject</LocCanonicalName>

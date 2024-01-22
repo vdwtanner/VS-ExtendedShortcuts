@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="ExtendedShortcuts.124780e7-c2c8-4e26-b574-9f0d62ff4ed9" Version="1.0" Language="en-US" Publisher="Tanner Van De Walle" />
-    <DisplayName>ExtendedShortcuts</DisplayName>
-    <Description>Empty VSIX Project.</Description>
-    <Icon>Resources\Icon.png</Icon>
-    <PreviewImage>Resources\Icon.png</PreviewImage>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
-      <ProductArchitecture>amd64</ProductArchitecture>
-    </InstallationTarget>
-  </Installation>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+    <Metadata>
+        <Identity Id="ExtendedShortcuts.124780e7-c2c8-4e26-b574-9f0d62ff4ed9" Version="0.5" Language="en-US" Publisher="Tanner Van De Walle" />
+        <DisplayName>ExtendedShortcuts</DisplayName>
+        <Description xml:space="preserve">ExtendedShortcuts is a VisualStudio 2022 extension intnded to provide shortcuts to various tasks in the development workflow. Currently supports Selecting and Building a favorite project via hotkeyExtendedShortcuts is a VisualStudio 2022 extension intnded to provide shortcuts to various tasks in the development workflow.</Description>
+        <MoreInfo>https://github.com/vdwtanner/VS-ExtendedShortcuts</MoreInfo>
+        <License>LICENSE.txt</License>
+        <Icon>Resources\Icon.png</Icon>
+        <PreviewImage>Resources\Icon.png</PreviewImage>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+    </Installation>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
 </PackageManifest>

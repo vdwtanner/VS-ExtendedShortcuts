@@ -21,7 +21,6 @@ namespace ExtendedShortcuts
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await Logger.InitAsync("ExtendedShortcuts");
-            await Logger.LogAsync("Hello world");
             await this.RegisterCommandsAsync();
             await Logger.LogAsync("ExtendedShortcuts initialization completed.");
         }

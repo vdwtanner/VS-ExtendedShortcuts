@@ -22,6 +22,7 @@ namespace ExtendedShortcuts
         {
             await Logger.InitAsync("ExtendedShortcuts");
             await this.RegisterCommandsAsync();
+            await FavoriteProjectHelper.Instance.InitializeAsync();
             await Logger.LogAsync("ExtendedShortcuts initialization completed.");
         }
     }

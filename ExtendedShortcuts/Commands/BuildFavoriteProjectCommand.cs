@@ -2,6 +2,9 @@
 using Microsoft.VisualStudio;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace ExtendedShortcuts
 {
@@ -11,13 +14,97 @@ namespace ExtendedShortcuts
         public static FavoriteProjectHelper Instance { get { if (_instance == null) { _instance = new FavoriteProjectHelper(); } return _instance; }}
 
         public Project favoriteProject {get; private set;}
+        private string _solutionDirectory;
+
+        private string GetSettingsFilePath()
+        {
+            if (string.IsNullOrEmpty(_solutionDirectory))
+                return null;
+            
+            var solutionName = Path.GetFileNameWithoutExtension(VS.Solutions.GetCurrentSolutionAsync().Result?.FullPath ?? "solution");
+            return Path.Combine(_solutionDirectory, $".vs/{solutionName}/extendedshortcuts.user.json");
+        }
+
+        public async Task InitializeAsync()
+        {
+            var solution = await VS.Solutions.GetCurrentSolutionAsync();
+            if (solution != null)
+            {
+                _solutionDirectory = Path.GetDirectoryName(solution.FullPath);
+                await LoadFavoriteProjectAsync();
+            }
+        }
+
+        private async Task LoadFavoriteProjectAsync()
+        {
+            try
+            {
+                var settingsFile = GetSettingsFilePath();
+                if (settingsFile == null || !File.Exists(settingsFile))
+                    return;
+
+                var json = await System.Threading.Tasks.Task.Run(() => File.ReadAllText(settingsFile));
+                var settings = JsonConvert.DeserializeObject<FavoriteProjectSettings>(json);
+                
+                if (settings?.FavoriteProjectPath != null)
+                {
+                    var projects = await VS.Solutions.GetAllProjectsAsync();
+                    var project = projects.FirstOrDefault(p => p.FullPath == settings.FavoriteProjectPath);
+                    
+                    if (project != null)
+                    {
+                        favoriteProject = project;
+                        await Logger.LogAsync($"Restored favorite project: {project.Name}");
+                    }
+                    else
+                    {
+                        await Logger.LogAsync($"Previous favorite project not found: {settings.FavoriteProjectPath}", Logger.Severity.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync($"Error loading favorite project settings: {ex.Message}", Logger.Severity.Error);
+            }
+        }
+
+        private async Task SaveFavoriteProjectAsync()
+        {
+            try
+            {
+                var settingsFile = GetSettingsFilePath();
+                if (settingsFile == null)
+                    return;
+
+                var directory = Path.GetDirectoryName(settingsFile);
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                var settings = new FavoriteProjectSettings
+                {
+                    FavoriteProjectPath = favoriteProject?.FullPath
+                };
+
+                var json = JsonConvert.SerializeObject(settings, Formatting.Indented);
+                await System.Threading.Tasks.Task.Run(() => File.WriteAllText(settingsFile, json));
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync($"Error saving favorite project settings: {ex.Message}", Logger.Severity.Error);
+            }
+        }
 
         public async Task SetFavoriteProjectAsync(Project project)
         {
             favoriteProject = project;
+            await SaveFavoriteProjectAsync();
             await Logger.LogAsync($"{project.Name} set as Favorite Project.");
         }
 
+        private class FavoriteProjectSettings
+        {
+            public string FavoriteProjectPath { get; set; }
+        }
     }
 
     [Command(PackageIds.BuildFavoriteProject)]
